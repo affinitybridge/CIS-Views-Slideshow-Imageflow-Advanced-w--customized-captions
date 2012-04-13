@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * The Views Slideshow: ImageFlow Advanced creates ImageFlow sliders
+ * with Views Slideshows.
+ *
+ * Some part of the code for this module was taken from
+ * Views Slideshow: ImageFlow by aaron
+ *
+ * Requirements:
+ * - Views 3+
+ * - Views_slideshow 3+
+ * - Libraries
+ * - ImageFlow JavaScript plugin from http://finnrudolph.de/ImageFlow installed
+ *   into your site's library directory, at /sites/all/libraries/imageflow.
+ */
+
+define('IMAGEFLOW_PACKED', FALSE); // affinity customization -- set this to false as there is no UI option in the D7 port
+
+/**
+ * Implements hook_theme().
+ */
+function views_slideshow_imageflow_advanced_theme($existing, $type, $theme, $path) {
+  return array(
+    'views_slideshow_imageflow_advanced' => array(
+      'variables' => array('view' => NULL, 'options' => array(), 'rows' => array(), 'title' => ''),
+      'template' => 'theme/views-slideshow-imageflow-advanced',
+      'file' => 'theme/views_slideshow_imageflow_advanced.theme.inc',
+    ),
+    'views_slideshow_imageflow_advanced_main_frame' => array(
+      'variables' => array('vss_id' => NULL, 'view' => NULL, 'options' => array(), 'rows' => array(), 'title' => ''),
+      'template' => 'theme/views-slideshow-imageflow-advanced',
+      'file' => 'theme/views_slideshow_imageflow_advanced.theme.inc',
+    ),
+    // This theme function is used only when ImageFlow is not applied.
+    'views_slideshow_imageflow_advanced_main_frame_row' => array(
+      'variables' => array('vss_id' => NULL, 'items' => NULL, 'view' => NULL),
+      'template' => 'theme/views-slideshow-imageflow-advanced-main-frame-row',
+      'file' => 'theme/views_slideshow_imageflow_advanced.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Return the path to the ImageFlow file.
+ *
+ * @param string $type
+ *   Predefined string 'js' or 'css' to return. Defaults to 'js'.
+ *
+ * @return string
+ *   The path to the imageflow file, including the file iteslf OR
+ *   empty string along with error message if ImageFlow plugin was not found.
+ */
+function views_slideshow_imageflow_advanced_get_file($type = 'js') {
+
+  if (module_exists('libraries')) {
+    // Path within 'sites/all/libraries'.
+    $imageflow_path = libraries_get_path('imageflow');
+    if (IMAGEFLOW_PACKED) {
+      $imageflow_filename = 'imageflow.packed.' . $type;
+    }
+    else {
+      $imageflow_filename = 'imageflow.' . $type;
+    }
+
+    $path = $imageflow_path . '/' . $imageflow_filename;
+
+    if (!file_exists($path)) {
+      $message = t('To use !imageflow, you must first !download the plugin package, extract it, and place the entire contents into the %sites or %other directory on your server.', array('%sites' => 'sites/all/libraries', '%other' => 'sites/example.com/libraries', '!imageflow' => l(t('ImageFlow'), 'http://finnrudolph.de/ImageFlow', array('attributes' => array('target' => '_blank'))), '!download' => l(t('download'), 'http://finnrudolph.de/ImageFlow/Download')));
+      drupal_set_message($message, 'error');
+      return '';
+    }
+
+    return $path;
+  }
+  return '';
+}

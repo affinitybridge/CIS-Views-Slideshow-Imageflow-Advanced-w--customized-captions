@@ -1,0 +1,8 @@
+name = Views Slideshow: ImageFlow Advanced
+description = Adds advanced Imageflow functionality to Views Slideshows.
+package = Views
+core = 7.x
+
+dependencies[] = views_slideshow
+dependencies[] = libraries
+
