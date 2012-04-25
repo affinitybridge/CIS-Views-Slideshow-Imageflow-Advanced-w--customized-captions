@@ -17,8 +17,8 @@
       print  $image ."\n";
       $record=$view->result[$key];
       $caption='<h3 class="species-commonname">'.$record->node_title.'</h3>';
-      dpm ($record);
-      // Scientific names
+      
+      // Scientific name
       if (isset($record->field_field_species_name_scientific[0]) && !empty($record->field_field_species_name_scientific[0]['rendered']['#markup'])) {
         $caption .= '<div class="species-scientificname"><span class="field-label">Scientific Name:&nbsp;</span>';
         $caption .= $record->field_field_species_name_scientific[0]['rendered']['#markup'];
