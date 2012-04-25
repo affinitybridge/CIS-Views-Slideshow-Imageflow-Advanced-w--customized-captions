@@ -54,21 +54,34 @@
       }
       
        // Translation
-      foreach ($record->field_field_cis_translation as $trans_parent) {
+      foreach ($record->field_field_cis_translation as $index => $trans_parent) {
         #dpm ($trans_parent, "translation parent");
         $trans_item=$trans_parent['rendered']['entity']['field_collection_item'][$trans_parent['raw']['value']];
-        #dpm ($trans_item, "translation item");
+        #dpm ($trans_item, "translation item $index");
         if ($language=$trans_item['field_cis_translation_lang'][0]['#title'] AND $name=$trans_item['field_cis_translation_name'][0]['#markup']) {
           $caption .= '<table class="species-translation"><tr>';
           $caption .= '<td class="field-value"><span class="field-label">' .$language. ':&nbsp;</span> ' . $name . '</td>';
+          //audio file
           if (isset($trans_item['field_cis_translation_audio'][0]['#attributes']['src'])) {
             $caption.= '<td class="species-play">'.cis_species_playbutton($trans_item['field_cis_translation_audio'][0]['#attributes']['src']).'</td>';
           }
+          // video popup
+          #if (isset($trans_item['field_cis_translation_video'][0]['#attributes']['src'])) {
+          #  module_load_include('inc', 'popup', 'includes/popup.api');
+          #  $caption.= '<td>'.popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click')).'</td>';
+          #  $caption.= '<td>'.popup_element('test', 'test', array('activate' => 'click')).'</td>';
+          #  // testing:
+          #  print popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click'));
+          #  print popup_element('test', 'test', array('activate' => 'click'));
+          #}
           $caption .= '</tr></table>';
+          
+          
         }
+        
       }
-      
       $desc[]=$caption;
+      
     } ?>
   </div>
 </div>
