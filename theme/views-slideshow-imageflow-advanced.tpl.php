@@ -44,9 +44,8 @@
         if ($language=$trans_item['field_cis_translation_lang'][0]['#title'] AND $name=$trans_item['field_cis_translation_name'][0]['#markup']) {
           $caption .= '<table class="species-translation"><tr>';
           $caption .= '<td class="field-value"><span class="field-label">' .$language. ':&nbsp;</span> ' . $name . '</td>';
-          if (isset($trans_item['field_cis_translation_audio'][0]['#file']->uri)) {
-            $audio='/'.variable_get('file_public_path', conf_path() . '/files').'/'.substr($trans_item['field_cis_translation_audio'][0]['#file']->uri,9);
-            $caption.= '<td class="species-play">'.cis_species_playbutton($audio).'</td>';
+          if (isset($trans_item['field_cis_translation_audio'][0]['#attributes']['src'])) {
+            $caption.= '<td class="species-play">'.cis_species_playbutton($trans_item['field_cis_translation_audio'][0]['#attributes']['src']).'</td>';
           }
           $caption .= '</tr></table>';
         }
