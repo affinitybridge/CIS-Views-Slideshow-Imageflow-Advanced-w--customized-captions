@@ -17,7 +17,7 @@
       print  $image ."\n";
       $record=$view->result[$key];
       $caption='<h3 class="species-commonname">'.$record->node_title.'</h3>';
-      
+      dpm ($record);
       // Scientific names
       if (isset($record->field_field_species_name_scientific[0]) && !empty($record->field_field_species_name_scientific[0]['rendered']['#markup'])) {
         $caption .= '<div class="species-scientificname"><span class="field-label">Scientific Name:&nbsp;</span>';
@@ -35,8 +35,25 @@
         $caption .= implode(', ', $o_names);
         $caption .= '</div>';
       }
-
-      // Translation
+      
+      // Species use
+      if (count($record->field_field_cis_species_use)>0) {
+        $caption .= '<div class="species-speciesuse"><span class="field-label">Species Use:&nbsp;</span>';
+        foreach ($record->field_field_cis_species_use as $count => $use) {
+          $caption .= $record->field_field_cis_species_use[$count]['rendered']['#markup'] . ", ";
+        }
+        $caption = substr($caption,0,-2);
+        $caption .= '</div>';
+      }
+      
+      // Public notes
+      if (isset($record->field_field_cis_species_public_notes [0]) && !empty($record->field_field_cis_species_public_notes [0]['rendered']['#markup'])) {
+        $caption .= '<div class="species-notes"><span class="field-label">Notes:&nbsp;</span>';
+        $caption .= $record->field_field_cis_species_public_notes[0]['rendered']['#markup'];
+        $caption .= '</div>';
+      }
+      
+       // Translation
       foreach ($record->field_field_cis_translation as $trans_parent) {
         #dpm ($trans_parent, "translation parent");
         $trans_item=$trans_parent['rendered']['entity']['field_collection_item'][$trans_parent['raw']['value']];
@@ -50,6 +67,7 @@
           $caption .= '</tr></table>';
         }
       }
+      
       $desc[]=$caption;
     } ?>
   </div>
