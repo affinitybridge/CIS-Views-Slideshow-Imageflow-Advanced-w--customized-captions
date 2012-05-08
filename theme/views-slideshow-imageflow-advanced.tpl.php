@@ -55,28 +55,54 @@
       
        // Translation
       foreach ($record->field_field_cis_translation as $index => $trans_parent) {
-        #dpm ($trans_parent, "translation parent");
         $trans_item=$trans_parent['rendered']['entity']['field_collection_item'][$trans_parent['raw']['value']];
-        #dpm ($trans_item, "translation item $index");
-        if ($language=$trans_item['field_cis_translation_lang'][0]['#title'] AND $name=$trans_item['field_cis_translation_name'][0]['#markup']) {
+        if (isset($trans_item['field_cis_translation_lang'][0]['#title']) AND isset($trans_item['field_cis_translation_name'][0]['#markup'])) {
+          $language=$trans_item['field_cis_translation_lang'][0]['#title'];
+          $name=$trans_item['field_cis_translation_name'][0]['#markup'];
+          
           $caption .= '<table class="species-translation"><tr>';
           $caption .= '<td class="field-value"><span class="field-label">' .$language. ':&nbsp;</span> ' . $name . '</td>';
+          
           //audio file
           if (isset($trans_item['field_cis_translation_audio'][0]['#attributes']['src'])) {
             $caption.= '<td class="species-play">'.cis_species_playbutton($trans_item['field_cis_translation_audio'][0]['#attributes']['src']).'</td>';
           }
+          
           // video popup
-          #if (isset($trans_item['field_cis_translation_video'][0]['#attributes']['src'])) {
-          #  module_load_include('inc', 'popup', 'includes/popup.api');
-          #  $caption.= '<td>'.popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click')).'</td>';
-          #  $caption.= '<td>'.popup_element('test', 'test', array('activate' => 'click')).'</td>';
-          #  // testing:
-          #  print popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click'));
-          #  print popup_element('test', 'test', array('activate' => 'click'));
-          #}
+          if (isset($trans_item['field_cis_translation_video'][0]['#attributes']['src'])) {
+            //module_load_include('inc', 'popup', 'includes/popup.api');
+            //$caption.= '<td>'.popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click')).'</td>';
+            $caption .= '<td>'.
+              l(t('Video'), $trans_item['field_cis_translation_video'][0]['#attributes']['src'], array('attributes' => array('rel' => 'lightvideo[group][Language: ' . $language. ' - Name: ' . $name . ']'))) .
+              '</td>';
+            
+            /*/ testing:
+            if($record->nid == 68) {
+            // create video settings for mediaelement video theme function
+            $video = array(
+              'attributes' => array(
+                'src' => $trans_item['field_cis_translation_video'][0]['#attributes']['src'],
+                'class' => 'mediaelement-formatter-identifier-' . $trans_parent['raw']['value'],
+                'controls' => 'controls',
+                'height' => '360',
+                'width' => '203',
+                'preload' => 'true',
+              ),
+              'settings' => array(
+                'controls' => 1,
+                'download_link' => 0,
+                'download_text' => t("Download"),
+                'height' => '360',
+                'width' => '203',
+              ),
+            );
+            //print popup_element('Video', theme('mediaelement_video', $video), array('activate' => 'click'));
+            //print '<a href="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '" rel="lightvideo[][Language: ' . $language. ' - Name: ' . $name . ']">Video test</a>';
+            print l(t('Video test 2'), $trans_item['field_cis_translation_video'][0]['#attributes']['src'], array('attributes' => array('rel' => 'lightvideo[][Language: ' . $language. ' - Name: ' . $name . ']')));
+            }
+            */
+          }
           $caption .= '</tr></table>';
-          
-          
         }
         
       }

@@ -6,3 +6,10 @@ core = 7.x
 dependencies[] = views_slideshow
 dependencies[] = libraries
 
+
+
+; Information added by drush on 2012-05-07
+version = "695fb9dc816df7bd31c00a52967b1ec995a8d199"
+project = "views_slideshow_imageflow_advanced"
+datestamp = "1336406440"
+
