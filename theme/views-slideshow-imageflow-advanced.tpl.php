@@ -70,37 +70,14 @@
           
           // video popup
           if (isset($trans_item['field_cis_translation_video'][0]['#attributes']['src'])) {
-            //module_load_include('inc', 'popup', 'includes/popup.api');
-            //$caption.= '<td>'.popup_element('video', '<video width="360" height="203" id="video'.$index.'" src="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '">Cannot play video</video>', array('activate' => 'click')).'</td>';
-            $caption .= '<td>'.
-              l(t('Video'), $trans_item['field_cis_translation_video'][0]['#attributes']['src'], array('attributes' => array('rel' => 'lightvideo[group][Language: ' . $language. ' - Name: ' . $name . ']'))) .
-              '</td>';
+            $vidpath=$trans_item['field_cis_translation_video'][0]['#attributes']['src'];
             
-            /*/ testing:
-            if($record->nid == 68) {
-            // create video settings for mediaelement video theme function
-            $video = array(
-              'attributes' => array(
-                'src' => $trans_item['field_cis_translation_video'][0]['#attributes']['src'],
-                'class' => 'mediaelement-formatter-identifier-' . $trans_parent['raw']['value'],
-                'controls' => 'controls',
-                'height' => '360',
-                'width' => '203',
-                'preload' => 'true',
-              ),
-              'settings' => array(
-                'controls' => 1,
-                'download_link' => 0,
-                'download_text' => t("Download"),
-                'height' => '360',
-                'width' => '203',
-              ),
-            );
-            //print popup_element('Video', theme('mediaelement_video', $video), array('activate' => 'click'));
-            //print '<a href="' . $trans_item['field_cis_translation_video'][0]['#attributes']['src'] . '" rel="lightvideo[][Language: ' . $language. ' - Name: ' . $name . ']">Video test</a>';
-            print l(t('Video test 2'), $trans_item['field_cis_translation_video'][0]['#attributes']['src'], array('attributes' => array('rel' => 'lightvideo[][Language: ' . $language. ' - Name: ' . $name . ']')));
-            }
-            */
+            // lightbox flash
+            $caption .= '<td>'.l(t('video'), $vidpath, array('attributes' => array('rel' => 'lightvideo[group][' . $language. ': ' . $name . ']'))) .'</td>';
+            
+            // lightbox video element -- still not working
+            ##$caption .= '<td>'.l(t('lightbox video element'), '<video width="360" height="203" id="video'.$index.'" src="' . $video . '">Cannot play video</video>', array('attributes' => array('rel' => 'lightvideo[group][Language: ' . $language. ' - Name: ' . $name . ']'))) .'</td>';
+      
           }
           $caption .= '</tr></table>';
         }
