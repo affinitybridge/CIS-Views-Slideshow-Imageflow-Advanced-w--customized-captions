@@ -71,6 +71,7 @@ function views_slideshow_imageflow_advanced_get_file($type = 'js') {
       return '';
     }
 
+    drupal_add_library('system', 'ui.dialog');
     return $path;
   }
   return '';

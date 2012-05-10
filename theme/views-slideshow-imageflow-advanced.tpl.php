@@ -72,12 +72,32 @@
           if (isset($trans_item['field_cis_translation_video'][0]['#attributes']['src'])) {
             $vidpath=$trans_item['field_cis_translation_video'][0]['#attributes']['src'];
             
-            // lightbox flash
-            $caption .= '<td>'.l(t('video'), $vidpath, array('attributes' => array('rel' => 'lightvideo[group][' . $language. ': ' . $name . ']'))) .'</td>';
+            // lightbox solution
+            //$caption .= '<td>'.l(t('video'), $vidpath, array('attributes' => array('rel' => 'lightvideo[group][' . $language. ': ' . $name . ']'))) .'</td>';
             
-            // lightbox video element -- still not working
-            ##$caption .= '<td>'.l(t('lightbox video element'), '<video width="360" height="203" id="video'.$index.'" src="' . $video . '">Cannot play video</video>', array('attributes' => array('rel' => 'lightvideo[group][Language: ' . $language. ' - Name: ' . $name . ']'))) .'</td>';
-      
+            // video tag solution
+            $vid = 'dialog-nid' . $record->nid . '-vid' . $trans_parent['raw']['value'];
+            
+            /* Note: the l() function returns "/#$vid" for the url and I just want "#$vid"
+            
+            $link = l(t('video'), '',
+                array(
+                  'attributes' => array('class' => 'dialog-opener'),
+                  'fragment' => $vid
+                )
+              ) .
+            */
+            $link = '<a href="#' . $vid . '" class="dialog-opener">' . t('video') . '</a>';
+            
+            $video_dialog = '<div id="' . $vid . '" class="display-in-dialog">' .
+              '<video width="320" height="240" controls="controls">' .
+              '  <source src="' . $vidpath . '" type="' . file_get_mimetype($vidpath) . '" />' .
+              '  Your browser does not support the video tag.' .
+              '</video>' .
+            '</div>';
+            
+            $caption .= '<td>' . $link . $video_dialog . '</td>';
+            // end of: video tag solution
           }
           $caption .= '</tr></table>';
         }

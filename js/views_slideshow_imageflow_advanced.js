@@ -46,5 +46,25 @@
 
   viewsSlideshowImageFlowPlayer = function (id) {
     return viewsSlideshowImageFlowPlayers[id];
-  }
+  };
+  
+  /* VSIA stands for views_slideshow_imageflow_advanced */
+  Drupal.behaviors.vsiaVideoDialog = {
+    attach: function (context) {
+      // Enable video on jQueryUI Dialog
+      $('.display-in-dialog:not(.video-dialog-processed)').addClass('video-dialog-processed').dialog({
+  			autoOpen: false,
+  			maxWidth: '940',
+  			modal: true,
+  			resize: 'auto',
+  			width: 'auto'
+  		});
+  		
+  		$('.dialog-opener:not(.video-dialog-processed)').addClass('video-dialog-processed').click(function() {
+  		  var vid = $(this).attr('href');
+  			$(vid).dialog('open');
+  			return false;
+  		});
+    }
+  };
 })(jQuery);

@@ -13,3 +13,10 @@ version = "695fb9dc816df7bd31c00a52967b1ec995a8d199"
 project = "views_slideshow_imageflow_advanced"
 datestamp = "1336406440"
 
+
+
+; Information added by drush on 2012-05-10
+version = "254c644f2f0d66c6793ad0cc85a73ef0458129b6"
+project = "views_slideshow_imageflow_advanced"
+datestamp = "1336673595"
+
