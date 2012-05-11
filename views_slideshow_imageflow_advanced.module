@@ -71,6 +71,15 @@ function views_slideshow_imageflow_advanced_get_file($type = 'js') {
       return '';
     }
 
+    // Add Media Element library and Settings and Dialog box
+    drupal_add_library('mediaelement', 'mediaelement');
+    $me_settings = array('mediaelement' => array(
+      '.mediaelement-video > video' => array(
+        'controls' => TRUE,
+        'opts' => array(), // This is the mediaelement scripts options.
+      )
+    ));
+    drupal_add_js($me_settings, 'setting');
     drupal_add_library('system', 'ui.dialog');
     return $path;
   }

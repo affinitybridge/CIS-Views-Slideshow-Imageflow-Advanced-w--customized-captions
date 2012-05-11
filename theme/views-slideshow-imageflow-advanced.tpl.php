@@ -90,10 +90,18 @@
             $link = '<a href="#' . $vid . '" class="dialog-opener">' . t('video') . '</a>';
             
             $video_dialog = '<div id="' . $vid . '" class="display-in-dialog">' .
-              '<video width="320" height="240" controls="controls">' .
-              '  <source src="' . $vidpath . '" type="' . file_get_mimetype($vidpath) . '" />' .
-              '  Your browser does not support the video tag.' .
-              '</video>' .
+              theme('mediaelement_video',
+                array(
+                  'attributes' => array('src' => $vidpath, 'width' => "320", 'height' => "240"),
+                  'settings' => array(
+                    'controls' => 1,
+                    'download_link' => 0,
+                    'download_text' => t('Download video'),
+                    'height' => '240',
+                    'width' => '320'
+                  )
+                )
+              ) .
             '</div>';
             
             $caption .= '<td>' . $link . $video_dialog . '</td>';
