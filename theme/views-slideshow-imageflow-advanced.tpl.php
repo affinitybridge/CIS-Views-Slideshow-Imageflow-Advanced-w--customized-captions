@@ -61,7 +61,7 @@
           $name=$trans_item['field_cis_translation_name'][0]['#markup'];
           
           $caption .= '<table class="species-translation"><tr>';
-          $caption .= '<td class="field-value"><span class="field-label">' .$language. ':&nbsp;</span> ' . $name . '</td>';
+          $caption .= '<td class="field-value"><span class="field-label">' . $language . ':&nbsp;</span> ' . $name . '</td>';
           
           //audio file
           if (isset($trans_item['field_cis_translation_audio'][0]['#attributes']['src'])) {
@@ -89,7 +89,7 @@
             */
             $link = '<a href="#' . $vid . '" class="dialog-opener">' . t('video') . '</a>';
             
-            $video_dialog = '<div id="' . $vid . '" class="display-in-dialog">' .
+            $video_dialog = '<div id="' . $vid . '" class="display-in-dialog" title="' . $language . '">' .
               theme('mediaelement_video',
                 array(
                   'attributes' => array('src' => $vidpath, 'width' => "320", 'height' => "240"),
