@@ -9,6 +9,7 @@
  * We'll grab only the first image from each row.
  */
 function template_preprocess_views_slideshow_imageflow_advanced_main_frame(&$vars) {
+  global $base_url;
 
   $view = $vars['view'];
   $rows = $vars['rows'];

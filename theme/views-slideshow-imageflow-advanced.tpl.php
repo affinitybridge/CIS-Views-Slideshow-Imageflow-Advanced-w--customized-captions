@@ -21,7 +21,7 @@
       // Scientific name
       if (isset($record->field_field_species_name_scientific[0]) && !empty($record->field_field_species_name_scientific[0]['rendered']['#markup'])) {
         $caption .= '<div class="species-scientificname"><span class="field-label">Scientific Name:&nbsp;</span>';
-        $caption .= $record->field_field_species_name_scientific[0]['rendered']['#markup'];
+        $caption .= '<span class="field-value">' . $record->field_field_species_name_scientific[0]['rendered']['#markup'] . '</span>';
         $caption .= '</div>';
       }
 
@@ -32,24 +32,24 @@
         foreach ($record->field_field_species_name_other as $o_name) {
           $o_names[] = $o_name['rendered']['#markup'];
         }
-        $caption .= implode(', ', $o_names);
+        $caption .= '<span class="field-value">' . implode(', ', $o_names) . '</span>';
         $caption .= '</div>';
       }
       
       // Species use
       if (count($record->field_field_cis_species_use)>0) {
-        $caption .= '<div class="species-speciesuse"><span class="field-label">Species Use:&nbsp;</span>';
+        $caption .= '<div class="species-speciesuse"><span class="field-label">Species Use:&nbsp;</span> <span class="field-value">';
         foreach ($record->field_field_cis_species_use as $count => $use) {
           $caption .= $record->field_field_cis_species_use[$count]['rendered']['#markup'] . ", ";
         }
         $caption = substr($caption,0,-2);
-        $caption .= '</div>';
+        $caption .= '</span></div>';
       }
       
       // Public notes
       if (isset($record->field_field_cis_species_public_notes [0]) && !empty($record->field_field_cis_species_public_notes [0]['rendered']['#markup'])) {
         $caption .= '<div class="species-notes"><span class="field-label">Notes:&nbsp;</span>';
-        $caption .= $record->field_field_cis_species_public_notes[0]['rendered']['#markup'];
+        $caption .= '<span class="field-value">' . $record->field_field_cis_species_public_notes[0]['rendered']['#markup'] . '</span>';
         $caption .= '</div>';
       }
       
@@ -61,7 +61,7 @@
           $name=$trans_item['field_cis_translation_name'][0]['#markup'];
           
           $caption .= '<table class="species-translation"><tr>';
-          $caption .= '<td class="field-value"><span class="field-label">' . $language . ':&nbsp;</span> ' . $name . '</td>';
+          $caption .= '<td class="field-label">' . $language . ':&nbsp;</td><td class="field-value">' . $name . '</td>';
           
           //audio file
           if (isset($trans_item['field_cis_translation_audio'][0]['#attributes']['src'])) {

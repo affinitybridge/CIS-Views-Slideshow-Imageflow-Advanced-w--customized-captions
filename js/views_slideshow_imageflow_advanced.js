@@ -21,6 +21,12 @@
 
         // Plugin ID
         options['ImageFlowID'] = id;
+
+        if (!options['reflections']) {
+          options['reflections'] = false;
+          options['reflectionP'] = 0.0;
+        }
+        options['percentOther'] = 98;
         
         // Container resize, if required
         if (parseFloat(options['container_width']) !== 0){        
