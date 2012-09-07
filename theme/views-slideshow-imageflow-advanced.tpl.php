@@ -26,7 +26,7 @@
       }
 
       // Other names
-      if (isset($record->field_field_species_name_other) && !empty($record->field_field_species_name_other)) {
+      if (isset($record->field_field_species_name_other[0]) && !empty($record->field_field_species_name_other[0]['rendered']['#markup'])) {
         $caption .= '<div class="species-othername"><span class="field-label">Other Name(s):&nbsp;</span>';
         $o_names = array();
         foreach ($record->field_field_species_name_other as $o_name) {
