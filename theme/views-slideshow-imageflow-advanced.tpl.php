@@ -38,7 +38,7 @@
       
       // Species use
       if (count($record->field_field_cis_species_use)>0) {
-        $caption .= '<div class="species-speciesuse"><span class="field-label">Species Use:&nbsp;</span><span class="field-value">';
+        $caption .= '<div class="species-speciesuse"><span class="field-label">Species Use:&nbsp;</span> <span class="field-value">';
         foreach ($record->field_field_cis_species_use as $count => $use) {
           $caption .= $record->field_field_cis_species_use[$count]['rendered']['#markup'] . ", ";
         }
