@@ -88,8 +88,9 @@
                 )
               ) .
             */
-            $link = '<a href="#' . $vid . '" class="dialog-opener">' . t('video') . '</a>';
+            $link = '<a href="' . $vidpath . '" class="dialog-opener" title="' . $language . '">' . t('video') . '</a>';
             
+            /*
             $video_dialog = '<div id="' . $vid . '" class="display-in-dialog" title="' . $language . '">' .
               theme('mediaelement_video',
                 array(
@@ -104,8 +105,9 @@
                 )
               ) .
             '</div>';
+            */
             
-            $caption .= '<div class="vide-wrapper">' . $link . $video_dialog . '</div>';
+            $caption .= '<div class="vide-wrapper">' . $link . /*$video_dialog .*/ '</div>';
             // end of: video tag solution
             
           }

@@ -58,19 +58,22 @@
   Drupal.behaviors.vsiaVideoDialog = {
     attach: function (context) {
       // Enable video on jQueryUI Dialog
-      $('.display-in-dialog:not(.video-dialog-processed)').addClass('video-dialog-processed').dialog({
-  			autoOpen: false,
-  			maxWidth: '940',
-  			modal: true,
-  			resize: 'auto',
-  			width: 'auto'
-  		});
-  		
-  		$('.dialog-opener:not(.video-dialog-processed)').addClass('video-dialog-processed').click(function() {
-  		  var vid = $(this).attr('href');
-  			$(vid).dialog('open');
-  			return false;
-  		});
+      $('.dialog-opener').once().click(function() {
+        var that = this,
+            NewDialog = $('<div id="dialog-video" title="' + $(that).attr('title') + '"><div class="mediaelement-video"><video  src="' + $(that).attr('href') + '" width="320" height="240" ></video></div></div>');
+
+        NewDialog.dialog({
+          maxWidth: '940',
+          modal: true,
+          resizable: false,
+          width: 'auto',
+          open: function(event, ui) {
+            Drupal.attachBehaviors(NewDialog);
+          }
+        });
+
+        return false;
+      });
     }
   };
 })(jQuery);

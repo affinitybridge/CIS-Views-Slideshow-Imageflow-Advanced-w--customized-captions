@@ -83,5 +83,10 @@ function views_slideshow_imageflow_advanced_get_file($type = 'js') {
     drupal_add_library('system', 'ui.dialog');
     return $path;
   }
+
+  if (module_exists('mediaelement')) {
+    drupal_add_library('mediaelement', 'mediaelement');
+  }
+
   return '';
 }
