@@ -69,6 +69,11 @@
           width: 'auto',
           open: function(event, ui) {
             Drupal.attachBehaviors(NewDialog);
+          },
+          beforeClose: function(event, ui) {
+            $('video,audio', this).each(function() {
+              $(this)[0].player.pause();
+            });
           }
         });
 
